@@ -16,8 +16,8 @@ Este projeto implementa uma biblioteca para validar dados de usuários, incluind
 Clone o projeto:
 
 ```bash
-git clone 
-cd
+git clone https://github.com/GustavoRibeiroOliveira/C214-Projeto
+cd C214-Projeto
 ```
 
 Instale as dependências:
