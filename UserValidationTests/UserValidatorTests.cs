@@ -15,19 +15,11 @@ public class UserValidatorTests
         Email = "maria.silva@teste.com",
         Password = "Senha123",
         BirthDate = DateTime.Today.AddYears(-25),
-        CPF = "11144477735",            
+        CPF = "11144477735",
         Telefone = "11987654321",
-        CEP = "12345678",               
+        CEP = "12345678",
         Endereco = "Rua das Flores, 123"
     };
-
-    //testando validacao usuario
-    [TestMethod]
-    public void Should_Validate_Valid_User()
-    {
-        var result = validator.Validate(ValidUser);
-        Assert.IsTrue(result.IsValid);
-    }
 
     // ======== TESTES POSITIVOS =========
     // -------------------------------------
@@ -141,8 +133,8 @@ public class UserValidatorTests
             Email = "lucas@example.com",
             Password = "Senha123",
             BirthDate = DateTime.Today.AddYears(-30),
-            CPF = "12345678901", 
-            Telefone = "11987654321", 
+            CPF = "12345678901",
+            Telefone = "11987654321",
             CEP = "12345678",
             Endereco = "Rua das Palmeiras, 45"
         };
@@ -162,7 +154,7 @@ public class UserValidatorTests
             Password = "Senha123",
             BirthDate = DateTime.Today.AddYears(-28),
             CPF = "98765432100",
-            Telefone = "2198765432", 
+            Telefone = "2198765432",
             CEP = "87654321",
             Endereco = "Av. Central, 300"
         };
@@ -171,6 +163,40 @@ public class UserValidatorTests
 
         Assert.IsTrue(result.IsValid);
     }
+
+    [TestMethod]
+    public void CEPValido_DeveSerAceito()
+    {
+        var user = ValidUser;
+        user.CEP = "13579135";
+
+        var result = validator.Validate(user);
+
+        Assert.IsTrue(result.IsValid);
+    }
+
+    [TestMethod]
+    public void EnderecoNaoVazio_DeveSerValido()
+    {
+        var user = ValidUser;
+        user.Endereco = "Rua Nova Esperança, 789";
+
+        var result = validator.Validate(user);
+
+        Assert.IsTrue(result.IsValid);
+    }
+
+    [TestMethod]
+    public void UsuarioComTelefoneDe11Digitos_DeveSerValido()
+    {
+        var user = ValidUser;
+        user.Telefone = "11999999999"; // 11 dígitos
+
+        var result = validator.Validate(user);
+
+        Assert.IsTrue(result.IsValid);
+    }
+
 
     // ======== TESTES NEGATIVOS =========
     // -------------------------------------
@@ -321,8 +347,40 @@ public class UserValidatorTests
         Assert.IsFalse(result.IsValid);
         Assert.IsTrue(result.Errors.Exists(e => e.PropertyName == "Telefone"));
     }
-            
-    
 
+    [TestMethod]
+    public void CEPInvalido_DeveSerRejeitado()
+    {
+        var user = ValidUser;
+        user.CEP = "ABCDE123"; // letras, inválido
 
+        var result = validator.Validate(user);
+
+        Assert.IsFalse(result.IsValid);
+        Assert.IsTrue(result.Errors.Exists(e => e.PropertyName == "CEP"));
+    }
+
+    [TestMethod]
+    public void EnderecoVazio_DeveSerInvalido()
+    {
+        var user = ValidUser;
+        user.Endereco = "";
+
+        var result = validator.Validate(user);
+
+        Assert.IsFalse(result.IsValid);
+        Assert.IsTrue(result.Errors.Exists(e => e.PropertyName == "Endereco"));
+    }
+
+    [TestMethod]
+    public void SenhaSemNumero_DeveSerInvalida()
+    {
+        var user = ValidUser;
+        user.Password = "SenhaSemNumero"; // não tem número
+
+        var result = validator.Validate(user);
+
+        Assert.IsFalse(result.IsValid);
+        Assert.IsTrue(result.Errors.Exists(e => e.ErrorMessage.Contains("número")));
+    }
 }
