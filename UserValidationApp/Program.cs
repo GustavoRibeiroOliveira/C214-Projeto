@@ -13,7 +13,11 @@ class Program
             Name = "João Silva",
             Email = "joao.silva@example.com",
             Password = "Senha123!",
-            BirthDate = DateTime.Today.AddYears(-30)
+            BirthDate = DateTime.Today.AddYears(-30),
+            CPF = "12345678901",
+            Endereco = "Rua A, 123",
+            CEP = "12345678",
+            Telefone = "11987654321"
         };
 
         var result = validator.Validate(user);

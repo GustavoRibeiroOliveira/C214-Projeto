@@ -24,6 +24,21 @@ public class UserValidator : AbstractValidator<User>
 
         RuleFor(user => user.BirthDate)
             .Must(BeOver18).WithMessage("Usuário deve ter mais de 18 anos.");
+
+        RuleFor(user => user.CPF)
+            .NotEmpty()
+            .Matches(@"^\d{11}$").WithMessage("CPF deve conter 11 dígitos numéricos.");
+
+        RuleFor(user => user.Endereco)
+            .NotEmpty().WithMessage("Endereço é obrigatório.");
+
+        RuleFor(user => user.CEP)
+            .NotEmpty()
+            .Matches(@"^\d{8}$").WithMessage("CEP deve conter 8 dígitos numéricos.");
+
+        RuleFor(user => user.Telefone)
+            .NotEmpty()
+            .Matches(@"^\d{10,11}$").WithMessage("Telefone deve conter 10 ou 11 dígitos numéricos.");
     }
 
     private bool BeOver18(DateTime birthDate)
