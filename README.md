@@ -2,7 +2,7 @@
 
 ## 🧾 Descrição
 
-Este projeto implementa uma biblioteca para validar dados de usuários, incluindo nome, e-mail, senha e data de nascimento. Utiliza:
+Este projeto implementa uma biblioteca para validar dados de usuários, incluindo nome, e-mail, cep, endereço, telefone, senha e data de nascimento. Utiliza:
 
 - .NET 9
 - MSTest para testes unitários
