@@ -150,6 +150,7 @@ UserValidationProject/
 ├── UserValidationLibrary/       # Código principal (validações)
 ├── UserValidationTests/         # Testes MSTest
 ├── UserValidationApp/           # Código simples para testar usuários
+├── TrxToHtml/                   # Código para converter arquivo .trx em HTML
 ├── build.cake                   # Script do pipeline
 └── README.md
 ```
